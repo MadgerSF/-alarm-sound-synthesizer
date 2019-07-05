@@ -1,0 +1,23 @@
+#include "mbed.h"
+#include "USBSerial"
+
+    I2C i2c(PB_9,PB_6);
+
+int main() {
+    
+    int address = 0x94;
+    char status1 = 0x01,chip1= 0x2E;
+    
+    while(1) {
+        i2c.lock();
+        
+        BEEP[1:0] = 0x10;       //setting the beep generator as a multiple beeps
+        FREQ[3:0] = 0x0111;     //setting the frequency as 1000Hz
+        ONTIME[3:0] = 0x100     //setting the on duration of the beep signal as ~1.50 s
+        OFFTIME[2:0] = 0x000    //setting the off duration of the beep signal as ~1.23 s
+        BEEPVOL[4:0] = 0x00110  //setting the  volume of the beep signal as +6.0 dB
+        
+        
+        i2c.unlock();
+    }
+}
